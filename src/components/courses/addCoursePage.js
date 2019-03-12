@@ -1,4 +1,6 @@
 import React from "react";
+import {connect} from "react-redux";
+import * as courseActions from '../../actions/courseActions';
 
 class AddCourserPage extends React.Component {
     constructor(props, context) {
@@ -9,6 +11,7 @@ class AddCourserPage extends React.Component {
             }
         };
         this.onTitleChange = this.onTitleChange.bind(this);
+        this.onSave = this.onSave.bind(this);
     }
 
     render() {
@@ -19,11 +22,15 @@ class AddCourserPage extends React.Component {
                     <div className="form-group">
                         <label htmlFor="course-title">Course Title :</label>
 
-                        <input name="course-title" id="course-title" className="form-control" type="text" value={this.state.course.title}
+                        <input name="course-title" id="course-title" className="form-control" type="text"
+                               value={this.state.course.title}
                                onChange={this.onTitleChange}/>
                     </div>
                     <button type="submit" className="btn btn-primary" onClick={this.onSave}>Save</button>
                 </form>
+                {this.props.courses.map(course=>
+                    <div key={course.title}>{course.title}</div>
+                )}
             </div>
         );
     }
@@ -34,10 +41,18 @@ class AddCourserPage extends React.Component {
         this.setState({course: course});
     }
 
-    onSave() {
+    onSave(event) {
+        event.preventDefault();
+        this.props.dispatch(courseActions.createCourse(this.state.course));
         alert("saved successfully");
     }
 };
 
+function mapStateToProps(state, ownProps) {
+    return {
+        courses: state.courses
+    };
+}
 
-export default AddCourserPage;
+
+export default connect(mapStateToProps)(AddCourserPage);
