@@ -1,6 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import * as courseActions from '../../actions/courseActions';
+import {bindActionCreators} from "redux";
 
 class AddCourserPage extends React.Component {
     constructor(props, context) {
@@ -43,7 +44,7 @@ class AddCourserPage extends React.Component {
 
     onSave(event) {
         event.preventDefault();
-        this.props.dispatch(courseActions.createCourse(this.state.course));
+        this.props.actions.createCourse(this.state.course);
         alert("saved successfully");
     }
 };
@@ -54,5 +55,11 @@ function mapStateToProps(state, ownProps) {
     };
 }
 
+function mapDispatchToProps(dispatch) {
+    return {
+        actions : bindActionCreators(courseActions, dispatch)
+    }
+}
 
-export default connect(mapStateToProps)(AddCourserPage);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddCourserPage);
