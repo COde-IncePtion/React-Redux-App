@@ -11,7 +11,7 @@ class CoursesPage extends React.Component {
     };
 
     componentDidMount() {
-        this.props.actions.loadCourses();
+        this.props.actions.fetchCourses();
     }
 
     render() {
