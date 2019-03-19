@@ -10,6 +10,7 @@ let CoursesList = (props) => (
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
                 <th scope="col">Category</th>
+                <th scope="col">Author Name</th>
             </tr>
             </thead>
             <tbody>
@@ -19,6 +20,7 @@ let CoursesList = (props) => (
                         <th scope="row">{course.id}</th>
                         <td>{course.title}</td>
                         <td>{course.category}</td>
+                        <td>{course.authorName}</td>
                     </tr>
                 )
             }

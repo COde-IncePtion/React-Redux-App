@@ -4,6 +4,7 @@ import CoursesList from "./coursesList";
 import {Link} from "react-router-dom";
 import {bindActionCreators} from "redux";
 import * as courseActions from "../../actions/courseActions";
+import * as authorActions from "../../actions/authorActions";
 
 class CoursesPage extends React.Component {
     constructor(props, context) {
@@ -11,7 +12,8 @@ class CoursesPage extends React.Component {
     };
 
     componentDidMount() {
-        this.props.actions.fetchCourses();
+        this.props.courseActions.fetchCourses();
+        this.props.authorActions.fetchAuthors();
     }
 
     render() {
@@ -27,13 +29,19 @@ class CoursesPage extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        courses: state.courses
+        courses: state.authors.length === 0 ? [] : state.courses.map(course => {
+            return {
+                ...course,
+                authorName: state.authors.find(a => a.id === course.authorId).name
+            }
+        })
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(courseActions, dispatch)
+        courseActions: bindActionCreators(courseActions, dispatch),
+        authorActions: bindActionCreators(authorActions, dispatch)
     }
 }
 

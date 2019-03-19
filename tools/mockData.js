@@ -17,7 +17,7 @@ const courses = [
         id: 3,
         title: "Creating Reusable React Components",
         slug: "react-creating-reusable-components",
-        authorId: 1,
+        authorId: 2,
         category: "JavaScript"
     },
     {
@@ -31,7 +31,7 @@ const courses = [
         id: 5,
         title: "Building Applications with React and Redux",
         slug: "react-redux-react-router-es6",
-        authorId: 1,
+        authorId: 3,
         category: "JavaScript"
     },
     {
@@ -59,14 +59,14 @@ const courses = [
         id: 9,
         title: "Becoming an Outlier: Reprogramming the Developer Mind",
         slug: "career-reboot-for-developer-mind",
-        authorId: 1,
+        authorId: 2,
         category: "Career"
     },
     {
         id: 10,
         title: "Web Component Fundamentals",
         slug: "web-components-shadow-dom",
-        authorId: 1,
+        authorId: 3,
         category: "HTML5"
     }
 ];
