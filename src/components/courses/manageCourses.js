@@ -9,24 +9,28 @@ class ManageCoursesPage extends React.Component {
         super(props, context);
         this.state = {
             course: {
-                title: ""
+                title: "",
+                authorId: 2,
+                category: ""
             }
         };
-        this.onTitleChange = this.onTitleChange.bind(this);
+        this.onChange = this.onChange.bind(this);
         this.onSave = this.onSave.bind(this);
     }
 
     render() {
         return (
             <div>
-                <AddCourserPage course={this.state.course} onSave={this.onSave} onTitleChange={this.onTitleChange}/>
+                <AddCourserPage course={this.state.course} onSave={this.onSave} onChange={this.onChange}/>
             </div>
         );
     }
 
-    onTitleChange(event) {
-        const course = this.state.course;
-        course.title = event.target.value;
+    onChange(event) {
+        let field = event.target.name;
+        let value = event.target.value;
+        let course = this.state.course;
+        course[field] = value;
         this.setState({course: course});
     }
 
@@ -34,7 +38,7 @@ class ManageCoursesPage extends React.Component {
         event.preventDefault();
         this.props.actions.createCourse(this.state.course);
         alert("saved successfully");
-        this.props.history.push('/courses')
+        this.props.history.push('/courses');
 
     }
 };
