@@ -3,7 +3,6 @@ import React from 'react';
 
 let CoursesList = (props) => (
     <div>
-
         <table className="table table-hover" >
             <thead>
             <tr>

@@ -5,6 +5,9 @@ import {Link} from "react-router-dom";
 import {bindActionCreators} from "redux";
 import * as courseActions from "../../actions/courseActions";
 import * as authorActions from "../../actions/authorActions";
+import * as apiActions from "../../actions/apiActions";
+import AppLoader from "../../common/spinner";
+
 
 class CoursesPage extends React.Component {
     constructor(props, context) {
@@ -12,17 +15,20 @@ class CoursesPage extends React.Component {
     };
 
     componentDidMount() {
+        this.props.apiActions.startApiCall();
         this.props.courseActions.fetchCourses();
+        this.props.apiActions.startApiCall();
         this.props.authorActions.fetchAuthors();
     }
 
     render() {
         return (
-            <div>
-                <h1>Courses Available</h1>
-                <CoursesList courses={this.props.courses}/>
-                <Link to="/add-course">Add Course</Link>
-            </div>
+            this.props.showLoader ? <AppLoader/> :
+                <div>
+                    <h1>Courses Available</h1>
+                    <CoursesList courses={this.props.courses}/>
+                    <Link to="/add-course">Add Course</Link>
+                </div>
         );
     };
 };
@@ -34,14 +40,16 @@ function mapStateToProps(state, ownProps) {
                 ...course,
                 authorName: state.authors.find(a => a.id === course.authorId).name
             }
-        })
+        }),
+        showLoader: state.apiCallsInProgress > 0
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         courseActions: bindActionCreators(courseActions, dispatch),
-        authorActions: bindActionCreators(authorActions, dispatch)
+        authorActions: bindActionCreators(authorActions, dispatch),
+        apiActions: bindActionCreators(apiActions, dispatch)
     }
 }
 

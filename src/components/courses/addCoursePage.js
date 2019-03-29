@@ -14,12 +14,12 @@ class AddCourserPage extends React.Component {
                                onChange={this.props.onChange}/>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="category">Course Title :</label>
+                        <label htmlFor="category">Course Category :</label>
                         <input name="category" id="category" className="form-control" type="text"
                                value={this.props.course.category}
                                onChange={this.props.onChange}/>
                     </div>
-                    <button type="submit" className="btn btn-primary" onClick={this.props.onSave}>Save</button>
+                    <button type="submit" className="btn btn-primary" onClick={this.props.onSave}>{this.props.saving? "Saving...": "Save"}</button>
                 </form>
             </div>
         );
