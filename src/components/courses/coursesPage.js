@@ -19,17 +19,23 @@ class CoursesPage extends React.Component {
         this.props.courseActions.fetchCourses();
         this.props.apiActions.startApiCall();
         this.props.authorActions.fetchAuthors();
-    }
+    };
 
     render() {
         return (
             this.props.showLoader ? <AppLoader/> :
                 <div>
-                    <h1>Courses Available</h1>
-                    <CoursesList courses={this.props.courses}/>
-                    <Link to="/add-course">Add Course</Link>
+                    <h1 className="course-page-header">Courses Available</h1>
+                    <CoursesList courses={this.props.courses} deleteCourse={this.deleteCourse} />
+                    <button className="btn btn-outline-primary add-course-btn"><Link to="/add-course">Add Course</Link></button>
                 </div>
         );
+    };
+
+    deleteCourse(event){
+        event.preventDefault();
+        debugger;
+        console.log("asdads");
     };
 };
 
@@ -38,7 +44,7 @@ function mapStateToProps(state, ownProps) {
         courses: state.authors.length === 0 ? [] : state.courses.map(course => {
             return {
                 ...course,
-                authorName: state.authors.find(a => a.id === course.authorId).name
+                authorName: state.authors.find(a => a.id == course.authorId).name
             }
         }),
         showLoader: state.apiCallsInProgress > 0

@@ -11,7 +11,7 @@ class ManageCoursesPage extends React.Component {
         this.state = {
             course: {
                 title: "",
-                authorId: 2,
+                authorId: "",
                 category: ""
             },
             saving: false
@@ -21,19 +21,15 @@ class ManageCoursesPage extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        debugger;
-        if (this.props.apiCallsInProgress > 0)
-            debugger;
-        if (!this.props.saving)
-            debugger;
         if (this.props.apiCallsInProgress === 0 && this.state.saving)
             this.props.history.push('/courses');
     }
 
+
     render() {
         return (
             <div>
-                <AddCourserPage course={this.state.course} onSave={this.onSave} onChange={this.onChange}
+                <AddCourserPage course={this.state.course} authors={this.props.authors} onSave={this.onSave} onChange={this.onChange}
                                 saving={this.state.saving}/>
             </div>
         );
@@ -46,7 +42,6 @@ class ManageCoursesPage extends React.Component {
         course[field] = value;
         this.setState({course: course});
     }
-
     onSave(event) {
         event.preventDefault();
         this.setState({saving: true});
@@ -58,7 +53,7 @@ class ManageCoursesPage extends React.Component {
 
 function mapStateToProps(state, ownProps) {
     return {
-        courses: state.courses,
+        authors: state.authors,
         apiCallsInProgress: state.apiCallsInProgress
     };
 }
