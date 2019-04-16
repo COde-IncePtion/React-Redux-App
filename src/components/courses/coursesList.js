@@ -15,13 +15,13 @@ let CoursesList = (props) => (
             </thead>
             <tbody>
             {
-                props.courses.map((course, props) =>
+                props.courses.map(course =>
                     <tr key={course.id}>
                         <th scope="row">{course.id}</th>
                         <td>{course.title}</td>
                         <td>{course.category}</td>
                         <td>{course.authorName}</td>
-                        <td><span onClick={props.deleteCourse}><i className="far fa-trash-alt"></i></span></td>
+                        <td><button onClick={props.deleteCourse.bind(this, course.id)}><i className="far fa-trash-alt"></i></button></td>
                     </tr>
                 )
             }

@@ -23,7 +23,7 @@ let AddCourserPage = (props) => (
                 <select name="authorId" className="form-control custom-select" onChange={props.onChange}>
                     <option selected>Select Author</option>
                     {props.authors ? props.authors.map(author => <option key={author.id}
-                                                                                   value={author.id}>{author.name}</option>) : null}
+                                                                         value={author.id}>{author.name}</option>) : null}
                 </select>
             </div>
 

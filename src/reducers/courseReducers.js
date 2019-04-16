@@ -1,7 +1,7 @@
 import * as ActionTypes from '../actions/courseActionTypes';
 import {loop, Cmd} from "redux-loop";
-import {getCourses, saveCourse} from "../api/courseApi";
-import {fetchCourses, loadCoursesSuccess} from "../actions/courseActions";
+import {getCourses, saveCourse, deleteCourse} from "../api/courseApi";
+import {courseDeletedSuccess, createCourseSuccess, loadCoursesSuccess} from "../actions/courseActions";
 
 export default function courseReducer(state = [], action) {
     switch (action.type) {
@@ -10,9 +10,13 @@ export default function courseReducer(state = [], action) {
                 [...state],
                 Cmd.run(saveCourse, {
                     args: [action.course],
-                    successActionCreator: fetchCourses
+                    successActionCreator: createCourseSuccess
                 })
             );
+
+        case ActionTypes.CREATE_COURSE_SUCCESS:
+            return [...state, action.course];
+
         case ActionTypes.LOAD_COURSES_SUCCESS:
             return action.courses;
 
@@ -21,9 +25,23 @@ export default function courseReducer(state = [], action) {
                 [...state],
                 Cmd.run(getCourses,
                     {
-                        successActionCreator: loadCoursesSuccess,
+                        successActionCreator: loadCoursesSuccess
                     })
             );
+
+        case ActionTypes.DELETE_COURSE:
+            return loop(
+                [...state],
+                Cmd.run(deleteCourse,
+                    {
+                        args: [action.courseId],
+                        successActionCreator: courseDeletedSuccess
+                    })
+            );
+
+        case ActionTypes.COURSE_DELETED_SUCCESS:
+            debugger;
+            return [...(state.filter(course => course.id != action.courseId))];
 
         default:
             return state;

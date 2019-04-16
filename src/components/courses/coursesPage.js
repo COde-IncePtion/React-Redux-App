@@ -12,6 +12,7 @@ import AppLoader from "../../common/spinner";
 class CoursesPage extends React.Component {
     constructor(props, context) {
         super(props, context);
+        this.deleteCourse = this.deleteCourse.bind(this);
     };
 
     componentDidMount() {
@@ -26,16 +27,16 @@ class CoursesPage extends React.Component {
             this.props.showLoader ? <AppLoader/> :
                 <div>
                     <h1 className="course-page-header">Courses Available</h1>
-                    <CoursesList courses={this.props.courses} deleteCourse={this.deleteCourse} />
-                    <button className="btn btn-outline-primary add-course-btn"><Link to="/add-course">Add Course</Link></button>
+                    <CoursesList courses={this.props.courses} deleteCourse={this.deleteCourse}/>
+                    <button className="btn btn-outline-primary add-course-btn"><Link to="/add-course">Add Course</Link>
+                    </button>
                 </div>
         );
     };
 
-    deleteCourse(event){
+    deleteCourse(courseId, event) {
         event.preventDefault();
-        debugger;
-        console.log("asdads");
+        this.props.courseActions.deleteCourse(courseId);
     };
 };
 
